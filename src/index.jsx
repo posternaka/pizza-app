@@ -11,6 +11,10 @@ import Categories from './components/Categories';
 import Sort from './components/Sort';
 import PizzaBlock from './components/PizzaBlock';
 
+// db.json pizzas
+import pizzas from './assets/db.json';
+
+
 const App = () => (
     <div className="wrapper">
       <Header />
@@ -22,7 +26,9 @@ const App = () => (
           </div>
           <h2 className="content__title">Все пиццы</h2>
           <div className="content__items">
-             <PizzaBlock />
+            {
+              pizzas.map(data => <PizzaBlock {...data} />)
+            }
           </div>
         </div>
       </div>
