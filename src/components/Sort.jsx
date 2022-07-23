@@ -1,10 +1,22 @@
 import React from 'react';
 
 function Sort() {
+  const [isVisiblePopup, setIsVisiblePopup] = React.useState(false);
+  const [typeOfFilter, setTypeOfFilter] = React.useState(0);
+
+  const filter = ['популярности', 'цене', 'алфавиту'];
+
+  const handleSetSort = (index) => {
+    setTypeOfFilter(index)
+    setIsVisiblePopup(false)
+  }
+
+
   return (
     <div className="sort">
       <div className="sort__label">
         <svg
+          className={isVisiblePopup ? '' : 'rotate'}
           width="10"
           height="6"
           viewBox="0 0 10 6"
@@ -17,15 +29,26 @@ function Sort() {
           />
         </svg>
         <b>Сортировка по:</b>
-        <span>популярности</span>
+        <span onClick={() => setIsVisiblePopup(!isVisiblePopup)}>{filter[typeOfFilter]}</span>
       </div>
-      <div className="sort__popup">
-        <ul>
-          <li className="active">популярности</li>
-          <li>цене</li>
-          <li>алфавиту</li>
-        </ul>
-      </div>
+      {
+        isVisiblePopup &&
+          (<div className="sort__popup">
+            <ul>
+              {
+                filter.map((item, index) => (
+                  <li
+                    key={index} 
+                    onClick={() => handleSetSort(index)} 
+                    className={index === typeOfFilter ? "active" : ''
+                  }>
+                    {item}
+                  </li>
+                ))
+              }
+            </ul>
+          </div>)
+      }
     </div>
   )
 }
