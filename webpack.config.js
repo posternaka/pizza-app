@@ -90,7 +90,7 @@ module.exports = {
         // чтобы не указывать относительные пути, можно задать 
         alias: {
             '@': path.resolve(__dirname, 'src/'),
-            '@img': path.resolve(__dirname, 'src/assets/image'),
+            '@img': path.resolve(__dirname, 'src/assets/img'),
             '@fonts': path.resolve(__dirname, 'src/assets/fonts'),
             '@style': path.resolve(__dirname, 'src/styles/scss')
         }
@@ -100,6 +100,10 @@ module.exports = {
     devServer: {
         port: 4200,
         hot: isDev,
+        historyApiFallback: true,
+        static: {
+            directory: path.join(__dirname, "/"),
+        },
     },
     devtool: isDev ? 'source-map' : 'eval-cheap-module-source-map',
     plugins: [

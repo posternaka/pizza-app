@@ -7,7 +7,8 @@
     "dev": "cross-env NODE_ENV=development webpack --mode development",
     "build": "cross-env NODE_ENV=production webpack --mode production",
     "watch": "cross-env NODE_ENV=development webpack --mode development --watch",
-    "start": "cross-env NODE_ENV=development webpack-dev-server --mode development --open"
+    "start": "cross-env NODE_ENV=development webpack-dev-server --mode development --open",
+    "start-prod-server": "node server.js"
   },
   "browserslist": "> 0.25%, not dead",
   "keywords": [
@@ -18,6 +19,7 @@
   "author": "postenaka <nik.petrenko97@gmail.com>",
   "license": "ISC",
   "devDependencies": {
+    "express": "4.18.1",
     "@babel/core": "^7.18.9",
     "@babel/preset-env": "^7.18.9",
     "@babel/preset-react": "^7.18.6",
