@@ -1,13 +1,19 @@
 import React from 'react';
 
-function Sort() {
+function Sort({ sortType, cbSetSort }) {
   const [isVisiblePopup, setIsVisiblePopup] = React.useState(false);
-  const [typeOfFilter, setTypeOfFilter] = React.useState(0);
 
-  const filter = ['популярности', 'цене', 'алфавиту'];
+  const filter = [
+    {name: 'популярности ↑', sortType: 'rating', order: 'asc'}, 
+    {name: 'популярности ↓', sortType: 'rating', order: 'desc'}, 
+    {name: 'цене ↑', sortType: 'price', order: 'asc'}, 
+    {name: 'цене ↓', sortType: 'price', order: 'desc'}, 
+    {name: 'алфавиту ↑', sortType: 'name', order: 'asc'},
+    {name: 'алфавиту ↓', sortType: 'name', order: 'desc'},
+  ];
 
-  const handleSetSort = (index) => {
-    setTypeOfFilter(index)
+  const handleSetSort = (values) => {
+    cbSetSort(values)
     setIsVisiblePopup(false)
   }
 
@@ -29,7 +35,7 @@ function Sort() {
           />
         </svg>
         <b>Сортировка по:</b>
-        <span onClick={() => setIsVisiblePopup(!isVisiblePopup)}>{filter[typeOfFilter]}</span>
+        <span onClick={() => setIsVisiblePopup(!isVisiblePopup)}>{sortType.name}</span>
       </div>
       {
         isVisiblePopup &&
@@ -37,13 +43,13 @@ function Sort() {
             <ul>
               {
                 filter.map((item, index) => (
-                  <li
-                    key={index} 
-                    onClick={() => handleSetSort(index)} 
-                    className={index === typeOfFilter ? "active" : ''
-                  }>
-                    {item}
-                  </li>
+                    <li
+                      key={index}
+                      onClick={() => handleSetSort(item)} 
+                      className={item.name === sortType.name ? "active" : ''
+                    }>
+                      {item.name}
+                    </li>
                 ))
               }
             </ul>
