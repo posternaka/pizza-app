@@ -11,7 +11,7 @@ function Home() {
 
     const [categoryId, setCategoryId] = React.useState(0);
     const [sortType, setSortType] = React.useState(
-        {name: 'популярности', sortType: 'rating', order: 'asc'},
+        {name: 'популярности ↑', sortType: 'rating', order: 'asc'},
     );
 
     console.log(sortType);
