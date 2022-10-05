@@ -9,6 +9,7 @@ import Cart from '@/Pages/Cart';
 
 function App() {
     const [searchValue, setSearchValue] = React.useState('');
+    console.log(searchValue);
 
     return (
         <div className="wrapper">

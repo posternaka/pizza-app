@@ -46,8 +46,8 @@ function Sort({ sortType, cbSetSort }) {
                     <li
                       key={index}
                       onClick={() => handleSetSort(item)} 
-                      className={item.name === sortType.name ? "active" : ''
-                    }>
+                      className={item.name === sortType.name ? "active" : ''}
+                    >
                       {item.name}
                     </li>
                 ))
