@@ -2,6 +2,7 @@ import React from 'react';
 
 function Sort({ sortType, cbSetSort }) {
   const [isVisiblePopup, setIsVisiblePopup] = React.useState(false);
+  const modalRef = React.useRef();
 
   const filter = [
     {name: 'популярности ↑', sortType: 'rating', order: 'asc'}, 
@@ -11,6 +12,22 @@ function Sort({ sortType, cbSetSort }) {
     {name: 'алфавиту ↑', sortType: 'name', order: 'asc'},
     {name: 'алфавиту ↓', sortType: 'name', order: 'desc'},
   ];
+
+  React.useEffect(() => {
+    const handleClickOut = (e) => {
+      if(!e.composedPath().includes(modalRef.current)) {
+        setIsVisiblePopup(false)
+        console.log(e.composedPath());
+      } 
+    };
+
+    document.body.addEventListener('click', handleClickOut);
+
+    return () => {
+      document.body.removeEventListener('click', handleClickOut);
+    };
+
+  }, []);
 
   const handleSetSort = (values) => {
     cbSetSort(values)
@@ -35,7 +52,12 @@ function Sort({ sortType, cbSetSort }) {
           />
         </svg>
         <b>Сортировка по:</b>
-        <span onClick={() => setIsVisiblePopup(!isVisiblePopup)}>{sortType.name}</span>
+        <span 
+          ref={modalRef}
+          onClick={() => setIsVisiblePopup(!isVisiblePopup)}
+        >
+          {sortType.name}
+        </span>
       </div>
       {
         isVisiblePopup &&

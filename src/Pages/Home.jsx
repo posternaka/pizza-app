@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { setCategoryId, setSortType } from '@/redux/slices/filterSlice';
+import { setCategoryId, setSortType, setPageCount } from '@/redux/slices/filterSlice';
 
 import { SearchContext } from '@/App';
 import Categories from '@/components/Categories';
@@ -12,13 +12,12 @@ import Pagination from '@/components/Pagination/index';
 import axios from 'axios';
 
 function Home() {
-    const { categoryId, sortType} = useSelector(state => state.filter);
+    const { categoryId, sortType, pageCount } = useSelector(state => state.filter);
     const dispatch = useDispatch();
 
     const { searchValue } = React.useContext(SearchContext);
     const [items, setItems] = React.useState([]);
     const [isLoading, setIsLoading] = React.useState(true);
-    const [currentPage, setCurrentPage] = React.useState(1);
 
     const search = searchValue ? `&search=${searchValue}` : '';
 
@@ -27,15 +26,16 @@ function Home() {
 
         setIsLoading(true)
     
-        axios.get(`https://62dba18de56f6d82a774e889.mockapi.io/items?page=${currentPage}&limit=4&${category}${search}&sortBy=${sortType.sortType}&order=${sortType.order}`)
-        .then(res => {
-            setItems(res.data)
-            setIsLoading(false)
-        })
+        axios
+            .get(`https://62dba18de56f6d82a774e889.mockapi.io/items?page=${pageCount}&limit=4&${category}${search}&sortBy=${sortType.sortType}&order=${sortType.order}`)
+            .then(res => {
+                setItems(res.data)
+                setIsLoading(false)
+            })
 
 
         window.scrollTo(0, 0);
-    }, [categoryId, sortType, searchValue, currentPage])
+    }, [categoryId, sortType, searchValue, pageCount])
 
     return (
         <div className="container">
@@ -51,7 +51,7 @@ function Home() {
                     : items.map(data => <PizzaBlock key={data.id} {...data} />)
                 }
             </div>
-            <Pagination onPageChange={(page) => setCurrentPage(page)} />
+            <Pagination onPageChange={(page) => dispatch(setPageCount(page))} />
         </div>
     )
 }
