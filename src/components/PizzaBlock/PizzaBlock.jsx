@@ -1,10 +1,24 @@
-import React from 'react'
+import React from 'react';
 
-function PizzaBlock({name, types, sizes, price, imageUrl}) {
+import { useSelector, useDispatch } from 'react-redux';
+import { addItem } from '@/redux/slices/cardSlices';
+
+function PizzaBlock({id, name, types, sizes, price, imageUrl}) {
+    const dispatch = useDispatch();
+
     const [typePizza, setTypePizza] = React.useState();
     const [sizePizza, setSizePizza] = React.useState();
+    const type = typePizza ?? types[0];
+    const size = sizePizza ?? sizes[0];
+    const newID = String(id) + type + size;
+    const { items } = useSelector(state => state.card);
+    const cartItem = items.find((it) => it.newID === newID)
     const typesOfPizzas = ['тонкое', 'традиционное'];
 
+    const cache = () => {
+        const count = 1;
+        dispatch(addItem({ newID, name, type, size, price, count }));
+    }
 
     return (
         <div className='pizza-block-wrapper'>
@@ -34,8 +48,8 @@ function PizzaBlock({name, types, sizes, price, imageUrl}) {
                             sizes.map((size, index) => (
                                 <li
                                     key={index}
-                                    onClick={() => setSizePizza(index)} 
-                                    className={index === sizePizza ? 'active' : ''}
+                                    onClick={() => setSizePizza(size)} 
+                                    className={size === sizePizza ? 'active' : ''}
                                 >
                                     {size}см
                                 </li>
@@ -43,7 +57,10 @@ function PizzaBlock({name, types, sizes, price, imageUrl}) {
                         }
                     </ul>
                 </div>
-                <div className="pizza-block__bottom">
+                <div 
+                    onClick={cache}
+                    className="pizza-block__bottom"
+                >
                     <div className="pizza-block__price">от {price} ₽</div>
                     <div className="button button--outline button--add">
                     <svg
@@ -59,7 +76,7 @@ function PizzaBlock({name, types, sizes, price, imageUrl}) {
                         />
                     </svg>
                     <span>Добавить</span>
-                    <i>2</i>
+                    <i>{cartItem ? cartItem.count : ''}</i>
                     </div>
                 </div>
             </div>

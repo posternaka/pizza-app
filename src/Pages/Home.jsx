@@ -16,7 +16,7 @@ function Home() {
     const dispatch = useDispatch();
 
     const { searchValue } = React.useContext(SearchContext);
-    const [items, setItems] = React.useState([]);
+    const [data, setData] = React.useState([]);
     const [isLoading, setIsLoading] = React.useState(true);
 
     const search = searchValue ? `&search=${searchValue}` : '';
@@ -29,7 +29,7 @@ function Home() {
         axios
             .get(`https://62dba18de56f6d82a774e889.mockapi.io/items?page=${pageCount}&limit=4&${category}${search}&sortBy=${sortType.sortType}&order=${sortType.order}`)
             .then(res => {
-                setItems(res.data)
+                setData(res.data)
                 setIsLoading(false)
             })
 
@@ -48,7 +48,7 @@ function Home() {
                 {
                     isLoading 
                     ? [...new Array(10)].map((_, index) => <Skeleton key={index} />)
-                    : items.map(data => <PizzaBlock key={data.id} {...data} />)
+                    : data.map(it => <PizzaBlock key={it.id} {...it} />)
                 }
             </div>
             <Pagination onPageChange={(page) => dispatch(setPageCount(page))} />

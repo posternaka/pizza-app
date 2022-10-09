@@ -17,7 +17,6 @@ function Sort({ sortType, cbSetSort }) {
     const handleClickOut = (e) => {
       if(!e.composedPath().includes(modalRef.current)) {
         setIsVisiblePopup(false)
-        console.log(e.composedPath());
       } 
     };
 

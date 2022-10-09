@@ -2,9 +2,12 @@ import React from 'react';
 import logoSvg from '@img/pizza-logo.svg';
 import { Link } from 'react-router-dom';
 
+import { useSelector, useDispatch } from 'react-redux';
+
 import Search from './Search/Search';
 
 function Header() {
+  const { items } = useSelector(state => state.card);
 
   return (
     <div className="header">
@@ -52,7 +55,7 @@ function Header() {
                   strokeLinejoin="round"
                 />
               </svg>
-              <span>3</span>
+              <span>{items.length}</span>
             </Link>
           </div>
         </div>
