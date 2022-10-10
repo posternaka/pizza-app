@@ -18,6 +18,7 @@ function Home() {
     const { searchValue } = React.useContext(SearchContext);
     const [data, setData] = React.useState([]);
     const [isLoading, setIsLoading] = React.useState(true);
+    const [item, setItem] = React.useState(false);
 
     const search = searchValue ? `&search=${searchValue}` : '';
 
