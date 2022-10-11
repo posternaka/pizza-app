@@ -1,23 +1,30 @@
 import React from 'react';
 
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addItem } from '@/redux/slices/cardSlices';
+
+const typesOfPizzas = ['тонкое', 'традиционное'];
+
 
 function PizzaBlock({id, name, types, sizes, price, imageUrl}) {
     const dispatch = useDispatch();
+    const checkedItem = useSelector(state => state.cart.items.find(it => it.id === id));
+    const findingItem = checkedItem ? checkedItem.count : 0;
 
     const [typePizza, setTypePizza] = React.useState();
     const [sizePizza, setSizePizza] = React.useState();
-    const type = typePizza ?? types[0];
-    const size = sizePizza ?? sizes[0];
-    const newID = String(id) + type + size;
-    const { items } = useSelector(state => state.card);
-    const cartItem = items.find((it) => it.newID === newID)
-    const typesOfPizzas = ['тонкое', 'традиционное'];
+    
+    const onClickAdd = () => {
+        const item = {
+            id,
+            name, 
+            price,
+            imageUrl,
+            type: typesOfPizzas[typePizza],
+            size: sizePizza,
+        }
 
-    const cache = () => {
-        const count = 1;
-        dispatch(addItem({ newID, name, type, size, price, count }));
+        dispatch(addItem(item));
     }
 
     return (
@@ -58,11 +65,10 @@ function PizzaBlock({id, name, types, sizes, price, imageUrl}) {
                     </ul>
                 </div>
                 <div 
-                    onClick={cache}
                     className="pizza-block__bottom"
                 >
                     <div className="pizza-block__price">от {price} ₽</div>
-                    <div className="button button--outline button--add">
+                    <div onClick={onClickAdd} className="button button--outline button--add">
                     <svg
                         width="12"
                         height="12"
@@ -76,7 +82,7 @@ function PizzaBlock({id, name, types, sizes, price, imageUrl}) {
                         />
                     </svg>
                     <span>Добавить</span>
-                    <i>{cartItem ? cartItem.count : ''}</i>
+                    {checkedItem && <i>{findingItem}</i>}
                     </div>
                 </div>
             </div>

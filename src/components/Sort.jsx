@@ -16,7 +16,7 @@ function Sort({ sortType, cbSetSort }) {
   React.useEffect(() => {
     const handleClickOut = (e) => {
       if(!e.composedPath().includes(modalRef.current)) {
-        setIsVisiblePopup(false)
+        setIsVisiblePopup(false);
       } 
     };
 
@@ -25,7 +25,6 @@ function Sort({ sortType, cbSetSort }) {
     return () => {
       document.body.removeEventListener('click', handleClickOut);
     };
-
   }, []);
 
   const handleSetSort = (values) => {

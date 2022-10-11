@@ -5,29 +5,42 @@ const initialState = {
     items: [],
 }
 
-const cache = (items, obj) => {
-    const res = items.find(item => item.newID === obj.newID);
-    const newItems = [...items.filter(item => item.newID !== obj.newID)];
-    if(!res) {
-        newItems.push(obj);
-    } else {
-        res.count++;
-        newItems.push(res);
-    }
-    return newItems;
-}
-
-const cardSlices = createSlice({
+const cartSlices = createSlice({
     name: 'card',
     initialState,
     reducers: {
         addItem(state, action) {
-            // state.items.push(action.payload);
-            state.items = cache(state.items, action.payload);
-        },
+            const findItem = state.items.find((obj) => obj.id === action.payload.id);
 
+            if(findItem) {
+                findItem.count++;
+            } else {
+                state.items.push({
+                    ...action.payload,
+                    count: 1,
+                });
+            }
+
+            state.totalPrice = state.items.reduce((sum, obj) => {
+                return (obj.price * obj.count) + sum;
+            }, 0)
+        },
+        minusItem(state, action) {
+            const findItem = state.items.find(obj => obj.id === action.payload.id);
+
+            if(findItem) {
+                findItem.count--;
+            }
+        },
+        removeItem(state, action) {
+            state.items.filter(obj => obj.id !== action.payload.id);
+        },
+        clearItem(state) {
+            state.items = [];
+            state.totalPrice = 0;
+        }
     }
 })
 
-export const { addItem } = cardSlices.actions;
-export default cardSlices.reducer;
+export const { addItem, minusItem, removeItem, clearItem } = cartSlices.actions;
+export default cartSlices.reducer;
