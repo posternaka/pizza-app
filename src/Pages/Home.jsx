@@ -22,20 +22,26 @@ function Home() {
 
     const search = searchValue ? `&search=${searchValue}` : '';
 
-    React.useEffect(() => {
+    const fetch = async () => {
         const category = categoryId > 0 ? `category=${categoryId}` : '';
 
         setIsLoading(true)
     
-        axios
-            .get(`https://62dba18de56f6d82a774e889.mockapi.io/items?page=${pageCount}&limit=4&${category}${search}&sortBy=${sortType.sortType}&order=${sortType.order}`)
-            .then(res => {
-                setData(res.data)
-                setIsLoading(false)
-            })
+        try {
+            const res = await axios.get(`https://62dba18de56f6d82a774e889.mockapi.io/items?page=${pageCount}&limit=4&${category}${search}&sortBy=${sortType.sortType}&order=${sortType.order}`);
+            setData(res.data)
+        } catch (error) {
+            console.log("error", error.name);
+        } finally {
+            setIsLoading(false)
+        }
 
 
         window.scrollTo(0, 0);
+    }
+
+    React.useEffect(() => {
+        fetch()
     }, [categoryId, sortType, searchValue, pageCount])
 
     return (
