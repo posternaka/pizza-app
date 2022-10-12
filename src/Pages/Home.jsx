@@ -2,6 +2,7 @@ import React from 'react';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { setCategoryId, setSortType, setPageCount } from '@/redux/slices/filterSlice';
+import { setData } from '@/redux/slices/pizzaSlice';
 
 import { SearchContext } from '@/App';
 import Categories from '@/components/Categories';
@@ -12,13 +13,13 @@ import Pagination from '@/components/Pagination/index';
 import axios from 'axios';
 
 function Home() {
-    const { categoryId, sortType, pageCount } = useSelector(state => state.filter);
     const dispatch = useDispatch();
+    const { categoryId, sortType, pageCount } = useSelector(state => state.filter);
+    const data = useSelector(state => state.pizza.items);
 
     const { searchValue } = React.useContext(SearchContext);
-    const [data, setData] = React.useState([]);
+    // const [data, setData] = React.useState([]);
     const [isLoading, setIsLoading] = React.useState(true);
-    const [item, setItem] = React.useState(false);
 
     const search = searchValue ? `&search=${searchValue}` : '';
 
@@ -28,8 +29,9 @@ function Home() {
         setIsLoading(true)
     
         try {
-            const res = await axios.get(`https://62dba18de56f6d82a774e889.mockapi.io/items?page=${pageCount}&limit=4&${category}${search}&sortBy=${sortType.sortType}&order=${sortType.order}`);
-            setData(res.data)
+            const { data } = await axios.get(`https://62dba18de56f6d82a774e889.mockapi.io/items?page=${pageCount}&limit=4&${category}${search}&sortBy=${sortType.sortType}&order=${sortType.order}`);
+            // setData(res.data)
+            dispatch(setData(data))
         } catch (error) {
             console.log("error", error.name);
         } finally {

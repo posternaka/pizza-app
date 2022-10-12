@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { addItem } from '@/redux/slices/cardSlices';
+import { addItem } from '@/redux/slices/cartSlice';
 
 const typesOfPizzas = ['тонкое', 'традиционное'];
 

@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import CartItem from '@/components/CartItem';
 import CartEmpty from '@/components/CartEmpty';
 
-import { clearItem } from '@/redux/slices/cardSlices';
+import { clearItem } from '@/redux/slices/cartSlice';
 
 import { useSelector, useDispatch } from 'react-redux';
 
