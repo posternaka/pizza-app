@@ -1,14 +1,14 @@
 import React from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { addItem } from '@/redux/slices/cartSlice';
+import { addItem, selectCartById } from '@/redux/slices/cartSlice';
 
 const typesOfPizzas = ['тонкое', 'традиционное'];
 
 
 function PizzaBlock({id, name, types, sizes, price, imageUrl}) {
     const dispatch = useDispatch();
-    const checkedItem = useSelector(state => state.cart.items.find(it => it.id === id));
+    const checkedItem = useSelector(selectCartById(id));
     const findingItem = checkedItem ? checkedItem.count : 0;
 
     const [typePizza, setTypePizza] = React.useState();

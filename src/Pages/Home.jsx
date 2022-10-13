@@ -1,8 +1,8 @@
 import React from 'react';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { setCategoryId, setSortType, setPageCount } from '@/redux/slices/filterSlice';
-import { fetchPizza } from '@/redux/slices/pizzaSlice';
+import { setCategoryId, setSortType, setPageCount, searchValue, selectSort } from '@/redux/slices/filterSlice';
+import { fetchPizza, selectPizzaData } from '@/redux/slices/pizzaSlice';
 
 import { SearchContext } from '@/App';
 import Categories from '@/components/Categories';
@@ -13,10 +13,8 @@ import Pagination from '@/components/Pagination/index';
 
 function Home() {
     const dispatch = useDispatch();
-    const { categoryId, sortType, pageCount } = useSelector(state => state.filter);
-    const { items, status } = useSelector(state => state.pizza);
-
-    const { searchValue } = React.useContext(SearchContext);
+    const { categoryId, sortType, pageCount, searchValue } = useSelector(selectSort);
+    const { items, status } = useSelector(selectPizzaData);
     
     const fetch = async () => {
         const search = searchValue ? `&search=${searchValue}` : '';

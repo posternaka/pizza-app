@@ -21,7 +21,6 @@ const pizzaSlice = createSlice({
     initialState,
     reducers: {
         setData(state, action) {
-            console.log('все ок');
             state.items = action.payload;
         },
     },
@@ -40,6 +39,8 @@ const pizzaSlice = createSlice({
         },
     },
 })
+
+export const selectPizzaData = state => state.pizza;
 
 export const { setData } = pizzaSlice.actions;
 export default pizzaSlice.reducer;
