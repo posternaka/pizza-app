@@ -6,6 +6,7 @@ import Header from '@/components/Header';
 import Home from '@/Pages/Home';
 import NotFound from '@/Pages/NotFound';
 import Cart from '@/Pages/Cart';
+import FullCartPizza from '@/Pages/FullCartPizza';
 
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
                     <Route path="/" element={<Home />}  />
                     <Route path="*" element={<NotFound />} />
                     <Route path="/cart" element={<Cart />} />
+                    <Route path="/pizza" element={<FullCartPizza />} />
                 </Routes> 
             </div>
         </div>
