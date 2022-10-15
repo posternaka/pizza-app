@@ -1,9 +1,10 @@
 import axios from 'axios';
 import React from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 function FullCartPizza() {
   const [dataPizzas, setDataPizzas] = React.useState();
+  const navigate = useNavigate();
   // const { id } = useParams();
   const id = 1;
 
@@ -14,6 +15,7 @@ function FullCartPizza() {
         setDataPizzas(data);
       } catch (error) {
         <h3>Ошибка получения пиццы {error.name}</h3>
+        navigate('/');
       }
     }
 
