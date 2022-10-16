@@ -3,14 +3,14 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { setCategoryId, setSortType, setPageCount, selectSort } from '@/redux/slices/filterSlice';
-import { fetchPizza, selectPizzaData } from '@/redux/slices/pizzaSlice';
+import { setCategoryId, setSortType, setPageCount, selectSort } from '../redux/slices/filterSlice';
+import { fetchPizza, selectPizzaData } from '../redux/slices/pizzaSlice';
 
-import Categories from '@/components/Categories';
-import Sort from '@/components/Sort';
-import PizzaBlock from '@/components/PizzaBlock/PizzaBlock';
-import Skeleton from '@/components/PizzaBlock/PizzaPreloadPlaceholder';
-import Pagination from '@/components/Pagination/index';
+import Categories from '../components/Categories';
+import Sort from '../components/Sort';
+import PizzaBlock from '../components/PizzaBlock/PizzaBlock';
+import Skeleton from '../components/PizzaBlock/PizzaPreloadPlaceholder';
+import Pagination from '../components/Pagination/index';
 
 
 function Home() {
@@ -31,7 +31,7 @@ function Home() {
         fetch()
     }, [categoryId, sortType, searchValue, pageCount]);
 
-    const pizzas = items.map(it => <Link to='/pizza' key={it.id}> <PizzaBlock {...it} /> </Link>);
+    const pizzas = items.map(it => <PizzaBlock key={it.id} {...it} />);
     const skileton = [...new Array(4)].map((_, index) => <Skeleton key={index} />);
 
     return (
