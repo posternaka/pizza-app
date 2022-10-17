@@ -6,6 +6,13 @@ type FilterTypeItem = {
   order: string;
 }
 
+type SortProps = {
+  sortType: {
+    name: string;
+  };
+  cbSetSort: any;
+}
+
 const filter: FilterTypeItem[] = [
   {name: 'популярности ↑', sortType: 'rating', order: 'asc'}, 
   {name: 'популярности ↓', sortType: 'rating', order: 'desc'}, 
@@ -15,13 +22,13 @@ const filter: FilterTypeItem[] = [
   {name: 'алфавиту ↓', sortType: 'name', order: 'desc'},
 ];
 
-function Sort({ sortType, cbSetSort }) {
+const Sort: React.FC<SortProps> = ({ sortType, cbSetSort }) => {
   const [isVisiblePopup, setIsVisiblePopup] = React.useState(false);
-  const modalRef = React.useRef();
+  const modalRef = React.useRef<HTMLSpanElement>(null);
 
 
   React.useEffect(() => {
-    const handleClickOut = (e) => {
+    const handleClickOut = (e: any) => {
       if(!e.composedPath().includes(modalRef.current)) {
         setIsVisiblePopup(false);
       } 

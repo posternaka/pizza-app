@@ -1,6 +1,6 @@
 import styles from './NotFoundBlock.module.scss';
 
-function NotFoundBlock() {
+const NotFoundBlock = () => {
   return (
     <h1 className={styles.root}> 
         <span>😕</span>
