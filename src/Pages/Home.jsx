@@ -1,7 +1,5 @@
 import React from 'react';
 
-import { Link } from 'react-router-dom';
-
 import { useSelector, useDispatch } from 'react-redux';
 import { setCategoryId, setSortType, setPageCount, selectSort } from '../redux/slices/filterSlice';
 import { fetchPizza, selectPizzaData } from '../redux/slices/pizzaSlice';
