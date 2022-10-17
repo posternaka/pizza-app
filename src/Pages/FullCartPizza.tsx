@@ -4,10 +4,14 @@ import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 
-const FullCartPizza = () => {
+const FullCartPizza: React.FC = () => {
     const { id } = useParams();
     const navigate = useNavigate();
-    const [data, setData] = useState();
+    const [data, setData] = useState<{
+        imageUrl: string;
+        name: string;
+        price: number;
+    }>();
     console.log(data);
 
     React.useEffect(() => {

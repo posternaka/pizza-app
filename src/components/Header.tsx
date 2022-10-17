@@ -11,7 +11,7 @@ function Header() {
   const { items, totalPrice } = useSelector(selectCart);
   const { pathname } = useLocation();
 
-  const totalItems = items.reduce((sum, it) => it.count + sum, 0);
+  const totalItems = items.reduce((sum:number, it:any) => it.count + sum, 0);
 
   return (
     <div className="header">

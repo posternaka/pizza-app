@@ -1,17 +1,24 @@
 import React from 'react';
 
+type FilterTypeItem = {
+  name: string;
+  sortType: string;
+  order: string;
+}
+
+const filter: FilterTypeItem[] = [
+  {name: 'популярности ↑', sortType: 'rating', order: 'asc'}, 
+  {name: 'популярности ↓', sortType: 'rating', order: 'desc'}, 
+  {name: 'цене ↑', sortType: 'price', order: 'asc'}, 
+  {name: 'цене ↓', sortType: 'price', order: 'desc'}, 
+  {name: 'алфавиту ↑', sortType: 'name', order: 'asc'},
+  {name: 'алфавиту ↓', sortType: 'name', order: 'desc'},
+];
+
 function Sort({ sortType, cbSetSort }) {
   const [isVisiblePopup, setIsVisiblePopup] = React.useState(false);
   const modalRef = React.useRef();
 
-  const filter = [
-    {name: 'популярности ↑', sortType: 'rating', order: 'asc'}, 
-    {name: 'популярности ↓', sortType: 'rating', order: 'desc'}, 
-    {name: 'цене ↑', sortType: 'price', order: 'asc'}, 
-    {name: 'цене ↓', sortType: 'price', order: 'desc'}, 
-    {name: 'алфавиту ↑', sortType: 'name', order: 'asc'},
-    {name: 'алфавиту ↓', sortType: 'name', order: 'desc'},
-  ];
 
   React.useEffect(() => {
     const handleClickOut = (e) => {
@@ -27,7 +34,7 @@ function Sort({ sortType, cbSetSort }) {
     };
   }, []);
 
-  const handleSetSort = (values) => {
+  const handleSetSort = (values: FilterTypeItem) => {
     cbSetSort(values)
     setIsVisiblePopup(false)
   }
