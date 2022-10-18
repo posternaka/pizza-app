@@ -11,7 +11,7 @@ import Skeleton from '../components/PizzaBlock/PizzaPreloadPlaceholder';
 import Pagination from '../components/Pagination/index';
 
 
-function Home() {
+const Home: React.FC = () => {
     const dispatch = useDispatch();
     const { categoryId, sortType, pageCount, searchValue } = useSelector(selectSort);
     const { items, status } = useSelector(selectPizzaData);
@@ -20,7 +20,15 @@ function Home() {
         const search = searchValue ? `&search=${searchValue}` : '';
         const category = categoryId > 0 ? `category=${categoryId}` : '';
 
-        dispatch(fetchPizza({ search, category, pageCount, sortType }));
+        dispatch(
+            //@ts-ignore
+            fetchPizza({ 
+                search, 
+                category, 
+                pageCount, 
+                sortType 
+            }),
+        );
 
         window.scrollTo(0, 0);
     }
@@ -29,14 +37,14 @@ function Home() {
         fetch()
     }, [categoryId, sortType, searchValue, pageCount]);
 
-    const pizzas = items.map(it => <PizzaBlock key={it.id} {...it} />);
+    const pizzas = items.map((it: any) => <PizzaBlock key={it.id} {...it} />);
     const skileton = [...new Array(4)].map((_, index) => <Skeleton key={index} />);
 
     return (
         <div className="container">
             <div className="content__top">
-                <Categories value={categoryId} cbSetCategory={(id) => dispatch(setCategoryId(id))} />
-                <Sort sortType={sortType} cbSetSort={(i) => dispatch(setSortType(i))} />
+                <Categories value={categoryId} cbSetCategory={(id : number) => dispatch(setCategoryId(id))} />
+                <Sort sortType={sortType} cbSetSort={(i: number) => dispatch(setSortType(i))} />
             </div>
             <h2 className="content__title">Все пиццы</h2>
             { 
@@ -54,7 +62,7 @@ function Home() {
                     </div>
             }
             
-            <Pagination onPageChange={(page) => dispatch(setPageCount(page))} />
+            <Pagination onPageChange={(page: number) => dispatch(setPageCount(page))} />
         </div>
     )
 }

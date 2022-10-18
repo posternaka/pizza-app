@@ -8,10 +8,10 @@ import { selectCart } from '../redux/slices/cartSlice';
 
 import { useSelector, useDispatch } from 'react-redux';
 
-function Cart() {
+const Cart: React.FC = () => {
   const dispatch = useDispatch();
   const { items, totalPrice } = useSelector(selectCart);
-  const totalItems = items.reduce((sum, it) => it.count + sum, 0);
+  const totalItems = items.reduce((sum: number, it: any) => it.count + sum, 0);
 
   const onClickClear = () => {
     if(window.confirm('Вы действительно хотите очистить страницу?')) {
@@ -47,7 +47,7 @@ function Cart() {
         </div>
         <div className="content__items">
         {
-          items.map(it => (
+          items.map((it: any) => (
             <CartItem key={it.id} {...it}/>
           ))
         }
