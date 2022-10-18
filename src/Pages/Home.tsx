@@ -62,7 +62,7 @@ const Home: React.FC = () => {
                     </div>
             }
             
-            <Pagination onPageChange={(page: number) => dispatch(setPageCount(page))} />
+            <Pagination onPageChange={(page) => dispatch(setPageCount(page))} />
         </div>
     )
 }

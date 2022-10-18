@@ -1,10 +1,11 @@
 type CategoriesProps = {
   value: number;
-  cbSetCategory: any;
+  cbSetCategory: (i: number) => void;
 }
 
+const categories = ['Все', 'Мясные', 'Вегетарианская', 'Гриль', 'Острые', 'Закрытые'];
+
 const Categories: React.FC<CategoriesProps> = ({ value, cbSetCategory}) => {
-  const categories = ['Все', 'Мясные', 'Вегетарианская', 'Гриль', 'Острые', 'Закрытые'];
 
   return (
     <div className="categories">

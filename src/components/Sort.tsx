@@ -28,8 +28,8 @@ const Sort: React.FC<SortProps> = ({ sortType, cbSetSort }) => {
 
 
   React.useEffect(() => {
-    const handleClickOut = (e: any) => {
-      if(!e.composedPath().includes(modalRef.current)) {
+    const handleClickOut = (e: MouseEvent) => {
+      if(modalRef.current && !e.composedPath().includes(modalRef.current)) {
         setIsVisiblePopup(false);
       } 
     };
