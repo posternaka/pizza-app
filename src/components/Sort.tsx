@@ -22,7 +22,7 @@ const filter: FilterTypeItem[] = [
   {name: 'алфавиту ↓', sortType: 'name', order: 'desc'},
 ];
 
-const Sort: React.FC<SortProps> = ({ sortType, cbSetSort }) => {
+const Sort: React.FC<SortProps> = React.memo(({ sortType, cbSetSort }) => {
   const [isVisiblePopup, setIsVisiblePopup] = React.useState(false);
   const modalRef = React.useRef<HTMLSpanElement>(null);
 
@@ -91,6 +91,6 @@ const Sort: React.FC<SortProps> = ({ sortType, cbSetSort }) => {
       }
     </div>
   )
-}
+})
 
 export default Sort;

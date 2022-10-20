@@ -16,6 +16,10 @@ const Home: React.FC = () => {
     const dispatch = useAppDispatch();
     const { categoryId, sortType, pageCount, searchValue } = useSelector(selectSort);
     const { items, status } = useSelector(selectPizzaData);
+
+    const onChangeCategoryId = React.useCallback((id : number) => {
+        dispatch(setCategoryId(id));
+    }, []);
     
     const fetch = async () => {
         const search = searchValue ? `&search=${searchValue}` : '';
@@ -43,7 +47,7 @@ const Home: React.FC = () => {
     return (
         <div className="container">
             <div className="content__top">
-                <Categories value={categoryId} cbSetCategory={(id : number) => dispatch(setCategoryId(id))} />
+                <Categories value={categoryId} cbSetCategory={onChangeCategoryId} />
                 <Sort sortType={sortType} cbSetSort={(i: TSort) => dispatch(setSortType(i))} />
             </div>
             <h2 className="content__title">Все пиццы</h2>

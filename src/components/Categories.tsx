@@ -1,3 +1,6 @@
+import React from 'react';
+import useWhyDidYouUpdate from 'ahooks/lib/useWhyDidYouUpdate';
+
 type CategoriesProps = {
   value: number;
   cbSetCategory: (i: number) => void;
@@ -5,7 +8,8 @@ type CategoriesProps = {
 
 const categories = ['Все', 'Мясные', 'Вегетарианская', 'Гриль', 'Острые', 'Закрытые'];
 
-const Categories: React.FC<CategoriesProps> = ({ value, cbSetCategory}) => {
+const Categories: React.FC<CategoriesProps> = React.memo(({ value, cbSetCategory}) => {
+  useWhyDidYouUpdate('Categories', { value, cbSetCategory})
 
   return (
     <div className="categories">
@@ -24,6 +28,6 @@ const Categories: React.FC<CategoriesProps> = ({ value, cbSetCategory}) => {
         </ul>
     </div>
   )
-}
+})
 
 export default Categories;
