@@ -1,3 +1,4 @@
+import React from 'react';
 import logoSvg from '../assets/img/pizza-logo.svg';
 import { Link, useLocation } from 'react-router-dom';
 
@@ -10,8 +11,18 @@ import Search from './Search/Search';
 function Header() {
   const { items, totalPrice } = useSelector(selectCart);
   const { pathname } = useLocation();
+  const [ isMounted, setIsMounted ] = React.useState(false);
 
   const totalItems = items.reduce((sum:number, it:any) => it.count + sum, 0);
+
+  React.useEffect(() => {
+    if(isMounted) {
+      const json = JSON.stringify(items);
+      localStorage.setItem('pizzas', json);
+    }
+
+    setIsMounted(true);
+  }, [items])
 
   return (
     <div className="header">
