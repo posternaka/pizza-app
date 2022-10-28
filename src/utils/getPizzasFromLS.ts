@@ -1,3 +1,4 @@
+import { TCartSlice } from "../redux/cart/types";
 import { calcTotalPrice } from "./calcTotalPrice";
 
 export const getPizzasFromLS = () => {
@@ -6,7 +7,7 @@ export const getPizzasFromLS = () => {
     const totalPrice = calcTotalPrice(items);
 
     return {
-        items,
+        items: items as TCartSlice[],
         totalPrice,
     }
 }
