@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 import { useParams, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
@@ -36,15 +37,20 @@ const FullCartPizza: React.FC = () => {
     return (
         <div className='container'>
             <div className='pizza-block'>
-            <img 
-                className="pizza-block__image" 
-                src={data.imageUrl} 
-                alt={data.name}
-            />
-            <div >
-                <h1>{data.name}</h1>
-                <h3>{data.price} ₽</h3>
-            </div>
+                <img 
+                    className="pizza-block__image" 
+                    src={data.imageUrl} 
+                    alt={data.name}
+                />
+                <div >
+                    <h1>{data.name}</h1>
+                    <h3>{data.price} ₽</h3>
+                </div>
+                <Link to='/'>
+                    <div className="button button--outline button--add">
+                        <span>Назад</span>
+                    </div>
+                </Link>
             </div>
         </div>
     )
